@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="Login/css/login.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/main.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/layer/layui.all.js"></script>
+    <link href="Scripts/layer/css/layui.css" rel="stylesheet" />
+    <script src="Scripts/common.js"></script>
+    <script src="Scripts/jquery.form.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="headerLogo">
+            <div style="float: left; width: 500px">
+                <img alt="logo" src="/logo.png" width="60" height="60" class="headerLogoImg" />
+                <strong>我是标题, 一个有尊严的、 帅气的标题</strong>
+            </div>
+        </div>
+        <div class="headerNav">
+            <a href="/">返回首页</a>
+        </div>
+    </div>
+    <div class="banner">
+        <div class="login-aside">
+            <div id="o-box-up"></div>
+            <div id="o-box-down" style="table-layout: fixed;">
+                <form id="form1" class="registerform" method="post" action="Login/LoginHandler.ashx" onsubmit="return CheckLogin()">
+                    <div class="fm-item">
+                        <label for="logonId" class="form-label">系统登陆：</label>
+                        <input id="txUserName" name="txUserName" type="text" class="i-text" />
+
+                        <div class="ui-form-explain"></div>
+                    </div>
+
+                    <div class="fm-item">
+                        <label for="logonId" class="form-label">登陆密码：</label>
+                        <input id="txPassword" name="txPassword" type="text" class="i-text" />
+                        <div class="ui-form-explain"></div>
+                    </div>
+
+                    <div class="fm-item pos-r">
+                        <label for="logonId" class="form-label">验证码</label>
+                        <input id="validateCode" name="validateCode" type="text" class="i-text yzm" />
+                        <div class="ui-form-explain">
+                            <img src="./login/images/vifcode.png" class="yzm-img" id="validateImg" />
+                        </div>
+                    </div>
+
+                    <div class="fm-item">
+                        <label for="logonId" class="form-label"></label>
+
+                        <input id="submitBtn" type="submit" style="width:240px" value="登 录" class="layui-btn layui-btn-normal" />
+                        <div class="ui-form-explain"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="bd">
+            <ul>
+                <li style="background: url(Login/themes/theme-pic3.jpg) #CCE1F3 center 0 no-repeat;"></li>
+            </ul>
+        </div>
+        <div class="hd">
+            <ul></ul>
+        </div>
+    </div>
+    <div class="banner-shadow"></div>
+    <table width="100%">
+        <tr>
+            <td height="54" align="center">
+                <span style="color: #6F6D6D; font-size: 13px; line-height: 26px;">
+                    @copyright 2018 版权信息
+                </span>
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $("#submitBtn").on("click",function(){
+                window.location.href = "./WebSys/index.html";
+            })
+            
+        });
+
+
+        function CheckLogin()
+        {
+            var name = document.getElementById("txUserName");
+            var pass = document.getElementById("txPassword");
+            if (isNull(name.value))
+            {
+                layerTips('请输入帐号!', '#txUserName');
+                name.focus();
+                return false;
+            }
+            if (isNull(pass.value))
+            {
+                layerTips('请输入密码!', '#txPassword');
+
+                pass.focus();
+                return false;
+            }
+            var validateCode = document.getElementById("validateCode");
+            if (isNull(validateCode.value))
+            {
+                layerTips('请输入验证码!', '#validateCode');
+                return false;
+            }
+            return true;
+        }
+        function isNull(str)
+        {
+            if (str == "") return true;
+            var regu = "^[ ]+$";
+            var re = new RegExp(regu);
+            return re.test(str);
+        }
+        function refleshImg()
+        {
+            $("#validateImg").attr('src', src = "Login/codeHandler.ashx?flag=" + Math.random());  // 把随机数添加在验证码后面，防止浏览器不刷新
+        }
+    </script>
+
+</body>
+</html>

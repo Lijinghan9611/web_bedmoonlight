@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理</title>
+
+    <link href="../Scripts/layer/css/layui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./plugins/font-awesome/css/font-awesome.min.css" media="all" />
+    <link rel="stylesheet" href="./src/css/app.css" media="all" />
+    <link rel="stylesheet" href="./src/css/themes/default.css" media="all" id="skin" kit-skin />
+
+    <script src="../Scripts/layer/layui.js"></script>
+    <script src="../Scripts/common.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="src/js/index.js"></script>
+</head>
+<body class="kit-theme">    
+    <div class="layui-layout layui-layout-admin kit-layout-admin">
+        <div class="layui-header">
+            <!--头部-->
+            &nbsp;&nbsp;
+            <img id="logoImage" src="/logo.png" width="80" height="80" />
+            &nbsp;&nbsp;
+            <b id="ShowCompany">后台管理</b>
+            <ul class="layui-nav layui-layout-right kit-nav">
+                <li class="layui-nav-item"><a href="javascript:setMenu('0')" id="TopMenuItemMain">常用操作</a></li>
+                <li class="layui-nav-item "><a href="javascript:setMenu('1')" id="TopMenuItemManage">系统管理</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <i class="layui-icon">&#xe63f;</i> 皮肤
+                    </a>
+                    <dl class="layui-nav-child skin">
+                        <dd><a href="javascript:;" data-skin="orange"><label style="color:#ff6700;"><i class="layui-icon">&#xe658;</i> 橘子橙</label></a></dd>
+                        <dd><a href="javascript:;" data-skin="green"><label style="color:#00a65a;"><i class="layui-icon">&#xe658;</i> 原谅绿</label></a></dd>
+                        <dd><a href="javascript:;" data-skin="pink"><label style="color:#FA6086;"><i class="layui-icon">&#xe658;</i> 少女粉</label></a></dd>
+                        <dd><a href="javascript:;" data-skin="blue.1"><label style="color:#00c0ef;"><i class="layui-icon">&#xe658;</i> 天空蓝</label></a></dd>
+                        <dd><a href="javascript:;" data-skin="red"><label style="color:#dd4b39;"><i class="layui-icon">&#xe658;</i> 枫叶红</label></a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="./img/LoginImg.jpg" class="layui-nav-img" id="LoginImage"><span id="LoginName"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'pages/OA_UserBaseInfo.aspx',icon:'&#xe658;',title:'基本资料',id:'966'}"><i class="layui-icon">&#xe658;</i><span>基本资料</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'pages/Sys_PasswordSetting.aspx',icon:'&#xe620;',title:'修改密码',id:'967'}"><i class="layui-icon">&#xe620;</i><span>修改密码</span></a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="#" onclick="javascript: layerAlertAndGoUrl('确定退出吗？', '../Login.html');"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
+            </ul>
+        </div>
+
+        <!--左侧菜单-->
+        <div class="layui-side kit-side">
+            <div class="layui-side-scroll">
+                <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true" id="labNavName"></i></div>
+                <ul id="LeftMenuMain" class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+                    <li class="layui-nav-item  ">
+                        <a class="" style="background-color:white!important"  href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 基本操作</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'./pages/OA_NewNote.aspx',icon:'&#xe608;',title:'添加记事',id:'101'}">
+                                    <i class="layui-icon">&#xe608;</i><span> 添加记事</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'pages/OA_HolidayApply.aspx',icon:'&#xe62e;',title:'请假申请',id:'102'}">
+                                    <i class="layui-icon">&#xe62e;</i><span> 请假申请</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'pages/OA_ProjectNoteAdd.aspx',icon:'&#xe613;',title:'项目笔记添加',id:'103'}">
+                                    <i class="layui-icon">&#xe613;</i><span>项目笔记添加</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item  ">
+                        <a class="" style="background-color:white!important" href="javascript:;"><i class="fa fa-cog" aria-hidden="true"></i><span> 信息查询</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" id="noteSearchID" kit-target data-options="{url:'pages/OA_SearchNote.aspx',icon:'&#xe615;',title:'记事浏览',id:'201'}">
+                                    <i class="layui-icon">&#xe615;</i><span> 记事浏览</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'pages/OA_HolidayApplyList.aspx',icon:'&#xe63c;',title:'请假记录',id:'202'}">
+                                    <i class="layui-icon">&#xe63c;</i><span> 请假记录</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" id="projectNote" kit-target data-options="{url:'pages/OA_Project.aspx',icon:'fa fa-sticky-note',title:'项目浏览',id:'203'}">
+                                    <i class="fa fa-sticky-note"></i><span> 项目浏览</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item  ">
+                        <a class="" style="background-color:white!important" href="javascript:;"><i class="fa fa-tasks" aria-hidden="true"></i><span> 个人任务</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'pages/OA_TaskAssigned.aspx',icon:'fa fa-send',title:'任务指派',id:'401'}">
+                                    <i class="fa fa-send"></i><span> 任务指派</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" id="TaskRecievedPage" kit-target data-options="{url:'pages/OA_TaskRecieved.aspx',icon:'fa fa-get-pocket',title:'任务接收',id:'402'}">
+                                    <i class="fa fa-get-pocket"></i><span> 任务接收</span><span id="TaskRecieved" class="layui-badge  ">2</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" id="MyAssignedTask" kit-target data-options="{url:'pages/OA_TaskSP.aspx',icon:'fa fa-telegram',title:'任务审核',id:'403'}">
+                                    <i class="fa fa-telegram"></i><span> 任务审核</span><span id="MyAssigned" class="layui-badge ">5</span>
+                                </a>
+                            </dd>
+                            <dd class="  admin">
+                                <a href="javascript:;" kit-target data-options="{url:'pages/OA_TaskAll.aspx',icon:'fa fa-connectdevelop',title:'所有任务',id:'404'}">
+                                    <i class="fa fa-connectdevelop"></i><span> 所有任务</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item     admin">
+                        <a class="" style="background-color:white!important" href="javascript:;"><i class="fa fa-edit" aria-hidden="true"></i><span> 信息管理</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'pages/OA_HolidayApproval.aspx',icon:'fa fa-umbrella',title:'请假审批',id:'301'}">
+                                    <i class="fa fa-umbrella"></i><span> 请假审批</span><span id="HolidayApproval" class="layui-badge">5</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'pages/OA_UserList.aspx',icon:'&#xe612;',title:'用户管理',id:'302'}">
+                                    <i class="layui-icon">&#xe612;</i><span> 用户管理</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'pages/Sys_SettingEdit.aspx',icon:'&#xe654;',title:'类型管理',id:'303'}">
+                                    <i class="layui-icon">&#xe654;</i><span> 类型管理</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+
+                <!--菜单2-->
+                <ul id="LeftMenuSecond" class="layui-nav layui-nav-tree" style="display:none" lay-filter="kitNavbar" kit-navbar>
+                    <li class="layui-nav-item  ">
+                        <a class="" style="background-color:white!important" href="javascript:;"><i class="fa fa-qrcode" aria-hidden="true"></i><span> 系统管理</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'pages/Code_ProjectAdd.aspx',icon:'fa fa-codepen',title:'二维码任务创建',id:'2101'}">
+                                    <i class="fa fa-codepen"></i><span>二维码任务创建</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" id="codeProjectList" kit-target data-options="{url:'pages/Code_ProjectList.aspx',icon:'fa fa-archive',title:'二维码任务列表',id:'2102'}">
+                                    <i class="fa fa-archive"></i><span>二维码任务列表</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item     admin">
+                        <a class="" href="javascript:;"><i class="fa fa-edit" aria-hidden="true"></i><span> 平台管理</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'pages/Sys_PTEdit.aspx',icon:'fa fa-building',title:'平台网址管理',id:'2103'}">
+                                    <i class="fa fa-building"></i><span> 平台网址管理</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body" id="container">
+            <!-- 内容主体区域 -->
+            <div style="padding: 15px;"><i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop">&#xe63e;</i> 请稍等...</div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            Copyright &copy; 1998-2018  版权所有
+        </div>
+    </div>
+</body>
+</html>
